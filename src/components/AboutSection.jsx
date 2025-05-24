@@ -1,6 +1,6 @@
 const AboutSection = () => {
     return (
-      <section className="relative py-20 px-6 text-center text-gray-300 bg-black overflow-hidden">
+      <section className="relative py-20 px-6 text-center text-gray-300 overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-5 bg-center bg-cover pointer-events-none" />
   
         <div className="flex justify-center space-x-4 mb-8">
