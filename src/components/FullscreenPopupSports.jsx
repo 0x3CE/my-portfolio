@@ -56,7 +56,15 @@ const FullscreenPopupSports = ({ onClose }) => {
     };
 
     container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
+
+    // 🆕 Empêche le scroll de la page en arrière-plan
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      document.body.style.overflow = originalOverflow; // Restaure le scroll normal
+    };
   }, []);
 
   // Handle click-based navigation
@@ -70,7 +78,7 @@ const FullscreenPopupSports = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black text-white overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 bg-black text-white max-h-screen overflow-y-hidden overflow-x-hidden flex flex-col">
       {/* Close Button */}
       <button
         onClick={onClose}
@@ -83,12 +91,12 @@ const FullscreenPopupSports = ({ onClose }) => {
       {/* Slides Container */}
       <div
         ref={containerRef}
-        className="flex flex-1 overflow-x-auto snap-x snap-mandatory scroll-smooth"
+        className="flex flex-1 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hidden touch-pan-x"
       >
         {slides.map((slide, i) => (
           <div
             key={i}
-            className="w-screen h-full flex-shrink-0 snap-center flex items-center justify-center relative px-6"
+            className="min-w-screen h-full flex-shrink-0 snap-center flex items-center justify-center relative px-6"
           >
             {/* Background Image */}
             <img
